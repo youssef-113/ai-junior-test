@@ -6,8 +6,8 @@ Stores and retrieves conversation history by session ID.
 
 from typing import Dict, List, Optional
 from datetime import datetime
-from langchain.memory import ChatMessageHistory
-from langchain.schema import BaseMessage, HumanMessage, AIMessage
+from langchain_core.chat_history import ChatMessageHistory
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 
 # In-memory session store
 _session_store: Dict[str, ChatMessageHistory] = {}

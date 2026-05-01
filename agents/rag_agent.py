@@ -9,8 +9,8 @@ Connected with schemas and databaseShared for validation.
 import logging
 from typing import Optional, List, Dict, Any
 from langchain_openai import ChatOpenAI
-from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
+from langchain.chains.retrieval_qa.base import RetrievalQA
 
 from config.settings import get_settings
 from RAG.retriever import get_retriever
@@ -85,12 +85,19 @@ class RAGKnowledgeAgent:
             openai_api_key=settings.openai_api_key,
         )
         retriever = get_retriever()
-        chain = RetrievalQA.from_chain_type(
-            llm=llm,
-            chain_type="stuff",
+        from langchain.chains.combine_documents.stuff import StuffDocumentsChain
+        from langchain.chains.llm import LLMChain
+        
+        # Build the RAG chain using LCEL pattern
+        llm_chain = LLMChain(llm=llm, prompt=RAG_PROMPT)
+        combine_docs_chain = StuffDocumentsChain(
+            llm_chain=llm_chain,
+            document_variable_name="context"
+        )
+        chain = RetrievalQA(
+            combine_documents_chain=combine_docs_chain,
             retriever=retriever,
             return_source_documents=True,
-            chain_type_kwargs={"prompt": RAG_PROMPT},
         )
         return chain
 

@@ -1,0 +1,62 @@
+# NovaBite Multi-Agent RAG System - Docker Compose
+# Orchestrates the API server and handles persistent volumes
+
+version: '3.8'
+
+services:
+  novabite-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: novabite-api
+    ports:
+      - "8000:8000"
+    environment:
+      # Required - Set these in .env file or override here
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # Optional - Override defaults
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-ada-002}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CHUNK_SIZE=${CHUNK_SIZE:-500}
+      - CHUNK_OVERLAP=${CHUNK_OVERLAP:-50}
+      - RETRIEVAL_TOP_K=${RETRIEVAL_TOP_K:-4}
+      - RETRIEVAL_SCORE_THRESHOLD=${RETRIEVAL_SCORE_THRESHOLD:-0.75}
+      - MAX_ITERATIONS=${MAX_ITERATIONS:-5}
+      - TEMPERATURE=${TEMPERATURE:-0.1}
+    volumes:
+      # Persist FAISS index between restarts
+      - faiss_data:/app/data/faiss_index
+      # Mount knowledge documents (optional - can also copy into image)
+      - ./data/Knowledge:/app/data/Knowledge:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - novabite-network
+
+  # Optional: Redis for distributed memory (if scaling horizontally)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: novabite-redis
+  #   volumes:
+  #     - redis_data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - novabite-network
+
+volumes:
+  faiss_data:
+    driver: local
+  # redis_data:
+  #   driver: local
+
+networks:
+  novabite-network:
+    driver: bridge
