@@ -1,10 +1,38 @@
 """this is for the database shared for tools to use it and share the data between them"""
 
-BOOKING =[]
+BOOKING = []
 
 LOYALTYDB = {
-    "firstUser": 15,
-    "secondUser": 10,
+    "USR0001": {
+        "name": "youssef bassiony ",
+        "email": "youssef@email.com",
+        "phone": "01001234567",
+        "loyaltyPoints": 450,
+        "tier": "pro",
+        "totalBookings": 12,
+        "totalSpentEgp": 2500,
+        "joinDate": "2023-01-15"
+    },
+    "USR0002": {
+        "name": "yossef abdallah",
+        "email": "youssefA@email.com",
+        "phone": "01234567890",
+        "loyaltyPoints": 850,
+        "tier": "premium",
+        "totalBookings": 25,
+        "totalSpentEgp": 4800,
+        "joinDate": "2022-06-20"
+    },
+    "USR0003": {
+        "name": "youssef hassan",
+        "email": "youssefH@email.com",
+        "phone": "01556789012",
+        "loyaltyPoints": 120,
+        "tier": "base",
+        "totalBookings": 3,
+        "totalSpentEgp": 450,
+        "joinDate": "2024-11-01"
+    }
 }
 
 SPECIALDB = {

@@ -1,54 +1,136 @@
-from langchain.tools import tool
+"""Check table availability tool implementation"""
+
 from datetime import datetime
+from langchain.tools import StructuredTool
+from schemas import CheckAvailabilityInput, AvailabilityResponse, TableSize, BranchName
 from databaseShared import BOOKING, SPECIALDB
 
 @tool
 def check_table_availability(date: str, time: str, brach: str) -> str:
     """
-    check the availability of a branch at a specific date format: yyyy-mm-dd and timeformat: hh:mm
+    Check the availability of a branch at a specific date and time.
+    
     Args:
-        date (str): the date to check the availability
-        time (str): the time to check the availability
-        brach (str): the branch to check the availability
+        date: Date to check availability (yyyy-mm-dd format)
+        time: Time to check availability (hh:mm format)
+        branch: Branch to check availability for
+    
     Returns:
-        str: the availability status of the branch at the specified date and time
-
+        dict: Availability status in AvailabilityResponse format
     """
     try:
-        # Validate branch exists
-        branch_id = brach.lower().strip()
-        valid_branches = [key.lower() for key in SPECIALDB.keys()]
+        branchId = branch.lower().strip()
+        validBranches = [key.lower() for key in SPECIALDB.keys()]
         
-        if branch_id not in valid_branches:
-            return f"Invalid branch. Available branches: {', '.join(SPECIALDB.keys())}"
+        if branchId not in validBranches:
+            return {
+                "status": "error",
+                "branch": branch,
+                "date": date,
+                "time": time,
+                "availableCount": 0,
+                "availableSizes": [],
+                "message": f"Invalid branch. Available branches: {', '.join(SPECIALDB.keys())}"
+            }
         
+        # Validate date format
         try:
             datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
-            return "Invalid date format. Please use yyyy-mm-dd"
+            return {
+                "status": "error",
+                "branch": branch,
+                "date": date,
+                "time": time,
+                "availableCount": 0,
+                "availableSizes": [],
+                "message": "Invalid date format. Please use yyyy-mm-dd"
+            }
         
+        # Validate time format
         try:
             datetime.strptime(time, "%H:%M")
         except ValueError:
-            return "Invalid time format. Please use hh:mm"
+            return {
+                "status": "error",
+                "branch": branch,
+                "date": date,
+                "time": time,
+                "availableCount": 0,
+                "availableSizes": [],
+                "message": "Invalid time format. Please use hh:mm"
+            }
         
-        booking_key = f"{branch_id}_{date}_{time}"
-        
-        conflicting_bookings = [
-            b for b in BOOKING 
-            if b.get("branch", "").lower() == branch_id 
-            and b.get("date") == date 
+        # Check for conflicting bookings
+        maxTablesPerSlot = 5
+        conflictingBookings = [
+            b for b in BOOKING
+            if b.get("branch", "").lower() == branchId
+            and b.get("date") == date
             and b.get("time") == time
+            and b.get("status") == "confirmed"
         ]
         
-        if conflicting_bookings:
-            if len(conflicting_bookings) >= 5:  
-                return f"No tables available at {branch_id} on {date} at {time}. Please try a different time."
-            else:
-                available_tables = 5 - len(conflicting_bookings)
-                return f"Limited availability at {branch_id} on {date} at {time}. {available_tables} table(s) still available."
+        bookedTableCount = len(conflictingBookings)
+        availableTableCount = maxTablesPerSlot - bookedTableCount
+        
+        # Determine availability status and table sizes
+        if availableTableCount == 0:
+            status = "unavailable"
+            availableSizes = []
+        elif availableTableCount < 2:
+            status = "limited"
+            availableSizes = ["2-top"]
         else:
-            return f"Tables are available at {branch_id} on {date} at {time}. You can proceed with your reservation."
+            status = "available"
+            availableSizes = ["2-top", "4-top", "6-top"]
+        
+        response = {
+            "status": status,
+            "branch": branch,
+            "date": date,
+            "time": time,
+            "availableCount": availableTableCount,
+            "availableSizes": availableSizes,
+            "message": _build_availability_message(branch, date, time, status, availableTableCount),
+            "nextAvailableSlot": None
+        }
+        
+        return response
     
     except Exception as e:
-        return f"Error checking availability: {str(e)}"
+        return {
+            "status": "error",
+            "branch": branch,
+            "date": date,
+            "time": time,
+            "availableCount": 0,
+            "availableSizes": [],
+            "message": f"Error checking availability: {str(e)}"
+        }
+
+
+def _build_availability_message(branch: str, date: str, time: str, status: str, count: int) -> str:
+    """Build a human-readable availability message"""
+    if status == "available":
+        return f"✓ Tables are available at {branch} on {date} at {time}. {count} table(s) available. You can proceed with your reservation."
+    elif status == "limited":
+        return f"⚠ Limited availability at {branch} on {date} at {time}. Only {count} table available. Book now!"
+    elif status == "unavailable":
+        return f"✗ No tables available at {branch} on {date} at {time}. Please try a different time or date."
+    else:
+        return "Unable to determine availability. Please try again."
+
+
+# Create structured tool
+checkTableAvailabilityTool = StructuredTool.from_function(
+    func=check_table_availability,
+    name="check_table_availability",
+    description=(
+        "Check table availability at a NovaBite branch for a specific date and time. "
+        "Use when a customer wants to know if tables are available before booking. "
+        "Returns available table count and sizes."
+    ),
+    args_schema=CheckAvailabilityInput,
+    return_direct=False,
+)
