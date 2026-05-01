@@ -1,6 +1,6 @@
 from langchain.tools import StructuredTool
-from typing import List
-from datetime import datetime , date
+from typing import List, Optional, Literal
+from datetime import datetime, date
 from pydantic import BaseModel, Field, validator
 from enum import Enum
 
@@ -35,7 +35,7 @@ class TableSize(str, Enum):
 class Branch(BaseModel):
     """Restaurant branch information"""
     name: BranchName
-    display_name: str
+    displayName: str
     city: str
     phone: Optional[str] = None
     address: Optional[str] = None
@@ -88,7 +88,7 @@ class SpecialEvent(BaseModel):
 
 class LoyaltyUser(BaseModel):
     """User loyalty information"""
-    user_id: str
+    userId: str
     name: Optional[str] = None
     email: Optional[str] = None
     phone: Optional[str] = None
@@ -103,8 +103,8 @@ class LoyaltyUser(BaseModel):
 
 class Booking(BaseModel):
     """Table booking record"""
-    confirmationID: Optional[str] = None
-    userID: str
+    confirmationId: Optional[str] = None
+    userId: str
     guestName: str
     branch: BranchName
     date: str  # Format: yyyy-mm-dd
@@ -133,7 +133,7 @@ class Booking(BaseModel):
         except ValueError:
             raise ValueError("Time must be in hh:mm format")
 
-    @validator("party_size")
+    @validator("partySize")
     def validate_party_size(cls, v):
         if v < 1 or v > 12:
             raise ValueError("Party size must be between 1 and 12")
@@ -172,7 +172,7 @@ class CheckAvailabilityInput(BaseModel):
 class BookTableInput(BaseModel):
     """Input schema for book_table tool"""
     guestName: str = Field(..., description="Guest name for the reservation")
-    userID: str = Field(..., description="Unique user identifier")
+    userId: str = Field(..., description="Unique user identifier")
     date: str = Field(..., description="Reservation date in yyyy-mm-dd format")
     time: str = Field(..., description="Reservation time in hh:mm format (24-hour)")
     branch: BranchName = Field(..., description="Branch name")
@@ -200,4 +200,112 @@ class BookTableInput(BaseModel):
 
     class Config:
         use_enum_values = True
+
+
+class GetTodaySpecialInput(BaseModel):
+    """Input schema for get_today_special tool"""
+    branch: BranchName = Field(..., description="Branch name")
+
+    class Config:
+        use_enum_values = True
+
+
+class CheckLoyaltyPointsInput(BaseModel):
+    """Input schema for check_loyalty_points tool"""
+    userId: str = Field(..., description="Unique user identifier")
+
+
+class AvailabilityResponse(BaseModel):
+    """Output schema for check_table_availability tool"""
+    status: Literal["available", "limited", "unavailable"]
+    branch: BranchName
+    date: str
+    time: str
+    availableCount: int
+    availableSizes: List[TableSize] = []
+    message: str
+    nextAvailableSlot: Optional[str] = None
+
+    class Config:
+        use_enum_values = True
+
+
+class BookingConfirmation(BaseModel):
+    """Output schema for book_table tool"""
+    status: Literal["confirmed", "failed", "unavailable"]
+    confirmationId: Optional[str] = None
+    guestName: str
+    branch: BranchName
+    date: str
+    time: str
+    partySize: int
+    message: str
+    alternativeTimes: Optional[List[str]] = None
+
+    class Config:
+        use_enum_values = True
+
+
+class TodaySpecialResponse(BaseModel):
+    """Output schema for get_today_special tool"""
+    branch: BranchName
+    weekday: str
+    startDish: str
+    endDish: str
+    additionalDish: str
+    message: str
+
+    class Config:
+        use_enum_values = True
+
+
+class LoyaltyPointsResponse(BaseModel):
+    """Output schema for check_loyalty_points tool"""
+    userId: str
+    status: Literal["found", "not_found"]
+    loyaltyPoints: int = 0
+    tier: LoyaltyTier = LoyaltyTier.BASE
+    nextTier: Optional[LoyaltyTier] = None
+    pointsToNextTier: Optional[int] = None
+    totalBookings: int = 0
+    message: str
+
+    class Config:
+        use_enum_values = True
+
+
+class ErrorResponse(BaseModel):
+    """Error response schema for all tools"""
+    status: Literal["error"]
+    errorCode: str
+    message: str
+    details: Optional[dict] = None
+
+
+class IntentClassification(BaseModel):
+    """Intent classification for orchestrator routing"""
+    intent: Literal["KNOWLEDGE", "OPERATIONS", "HYBRID", "CLARIFY"]
+    confidence: float = Field(..., ge=0.0, le=1.0)
+    reasoning: str
+    requiredTools: List[str] = []
+    clarificationQuestion: Optional[str] = None
+
+
+class OrchestratorRequest(BaseModel):
+    """Request structure for orchestrator"""
+    userId: str
+    userMessage: str
+    sessionId: Optional[str] = None
+    context: Optional[dict] = None
+
+
+class OrchestratorResponse(BaseModel):
+    """Response structure from orchestrator"""
+    userId: str
+    sessionId: Optional[str] = None
+    intent: str
+    response: str
+    toolsUsed: List[str] = []
+    confidence: float
+    context: Optional[dict] = None
 
