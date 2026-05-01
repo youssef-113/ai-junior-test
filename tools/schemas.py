@@ -168,3 +168,36 @@ class CheckAvailabilityInput(BaseModel):
 
     class Config:
         use_enum_values = True
+
+class BookTableInput(BaseModel):
+    """Input schema for book_table tool"""
+    guestName: str = Field(..., description="Guest name for the reservation")
+    userID: str = Field(..., description="Unique user identifier")
+    date: str = Field(..., description="Reservation date in yyyy-mm-dd format")
+    time: str = Field(..., description="Reservation time in hh:mm format (24-hour)")
+    branch: BranchName = Field(..., description="Branch name")
+    partySize: int = Field(..., description="Number of guests", ge=1, le=12)
+    specialOccasion: Optional[SpecialEventType] = Field(
+        None, description="Special occasion type if applicable"
+    )
+    notes: Optional[str] = Field(None, description="Special requests or notes")
+
+    @validator("date")
+    def validate_date_format(cls, v):
+        try:
+            datetime.strptime(v, "%Y-%m-%d")
+            return v
+        except ValueError:
+            raise ValueError("Date must be in yyyy-mm-dd format")
+
+    @validator("time")
+    def validate_time_format(cls, v):
+        try:
+            datetime.strptime(v, "%H:%M")
+            return v
+        except ValueError:
+            raise ValueError("Time must be in hh:mm format (24-hour)")
+
+    class Config:
+        use_enum_values = True
+
