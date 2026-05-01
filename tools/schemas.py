@@ -85,3 +85,33 @@ class SpecialEvent(BaseModel):
     class Config:
         use_enum_values = False
 
+
+class LoyaltyUser(BaseModel):
+    """User loyalty information"""
+    user_id: str
+    name: Optional[str] = None
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    loyaltyPoints: int = 0
+    tier: LoyaltyTier = LoyaltyTier.BASE
+    totalBookings: int = 0
+    joinDate: Optional[date] = None
+
+    class Config:
+        use_enum_values = False
+
+
+class Booking(BaseModel):
+    """Table booking record"""
+    confirmationID: Optional[str] = None
+    userID: str
+    guestName: str
+    branch: BranchName
+    date: str  # Format: yyyy-mm-dd
+    time: str  # Format: hh:mm
+    partySize: int
+    tableSize: Optional[TableSize] = None
+    specialOccasion: Optional[SpecialEventType] = None
+    notes: Optional[str] = None
+    createdAt: Optional[datetime] = None
+    status: Literal["confirmed", "cancelled", "completed"] = "confirmed"
