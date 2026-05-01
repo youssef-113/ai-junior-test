@@ -56,8 +56,8 @@ PLANS = {
 }
 
 EVENTS ={
-    "birthday" : "Celebrate your special day with us! Enjoy a complimentary birthday meal and a person alized dessert on the house."
-    " Make your reservation today and let us make your birthday unforgettable!",
+    "birthday" : "Celebrate your special day with us! Enjoy a complimentary birthday meal and a personalized dessert on the house."
+                " Make your reservation today and let us make your birthday unforgettable!",
     "anniversary" : "Celebrate your love with us! Enjoy a romantic dinner for two with a complimentary bottle of wine and a special dessert."
                      " Book your table now and make your anniversary unforgettable",
     "holiday" : "Celebrate the holidays with us! Enjoy a festive meal with special holiday-themed dishes and a complimentary dessert.",             

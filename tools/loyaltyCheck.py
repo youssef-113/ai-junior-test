@@ -3,8 +3,8 @@
 import logging
 from datetime import datetime
 from langchain.tools import StructuredTool
-from schemas import CheckLoyaltyPointsInput, LoyaltyPointsResponse, LoyaltyTier
-from databaseShared import LOYALTYDB, PLANS
+from .schemas import CheckLoyaltyPointsInput, LoyaltyPointsResponse, LoyaltyTier
+from .databaseShared import LOYALTYDB, PLANS
 
 # Loyalty tier thresholds
 LOYALTY_TIERS = [

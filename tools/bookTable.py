@@ -2,9 +2,10 @@
 
 import uuid
 from datetime import datetime
+from typing import Optional
 from langchain.tools import StructuredTool
-from schemas import BookTableInput, BookingConfirmation, BranchName
-from databaseShared import BOOKING
+from .schemas import BookTableInput, BookingConfirmation, BranchName, SpecialEventType
+from .databaseShared import BOOKING
 
 
 def _generate_confirmation_id() -> str:
@@ -47,6 +48,9 @@ def book_table(
     date: str,
     time: str,
     branch: str,
+    partySize: int = 2,
+    specialOccasion: Optional[str] = None,
+    notes: Optional[str] = None,
 ) -> dict:
     """
     Book a table at NovaBite restaurant.
@@ -105,7 +109,20 @@ def book_table(
             "partySize": partySize,
             "message": "Invalid time format. Use hh:mm"
         }
-    
+
+    # Validate party size
+    if partySize < 1 or partySize > 12:
+        return {
+            "status": "failed",
+            "confirmationId": None,
+            "guestName": guestName,
+            "branch": branch,
+            "date": date,
+            "time": time,
+            "partySize": partySize,
+            "message": "Party size must be between 1 and 12"
+        }
+
     if not _is_table_available(branchId, date, time):
         alternatives = _get_alternative_times(branchId, date, time)
         return {

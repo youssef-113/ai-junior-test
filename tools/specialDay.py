@@ -2,8 +2,8 @@
 
 from datetime import datetime
 from langchain.tools import StructuredTool
-from schemas import GetTodaySpecialInput, TodaySpecialResponse, BranchName
-from databaseShared import SPECIALDB
+from .schemas import GetTodaySpecialInput, TodaySpecialResponse, BranchName
+from .databaseShared import SPECIALDB
 
 # Map weekday to special dishes for each branch
 WEEKDAY_SPECIALS = {

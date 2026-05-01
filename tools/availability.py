@@ -2,11 +2,10 @@
 
 from datetime import datetime
 from langchain.tools import StructuredTool
-from schemas import CheckAvailabilityInput, AvailabilityResponse, TableSize, BranchName
-from databaseShared import BOOKING, SPECIALDB
+from .schemas import CheckAvailabilityInput, AvailabilityResponse, TableSize, BranchName
+from .databaseShared import BOOKING, SPECIALDB
 
-@tool
-def check_table_availability(date: str, time: str, brach: str) -> str:
+def check_table_availability(date: str, time: str, branch: str) -> dict:
     """
     Check the availability of a branch at a specific date and time.
     
@@ -21,6 +20,11 @@ def check_table_availability(date: str, time: str, brach: str) -> str:
     try:
         branchId = branch.lower().strip()
         validBranches = [key.lower() for key in SPECIALDB.keys()]
+        branchKey = None
+        for key in SPECIALDB.keys():
+            if key.lower() == branchId:
+                branchKey = key
+                break
         
         if branchId not in validBranches:
             return {
@@ -32,8 +36,6 @@ def check_table_availability(date: str, time: str, brach: str) -> str:
                 "availableSizes": [],
                 "message": f"Invalid branch. Available branches: {', '.join(SPECIALDB.keys())}"
             }
-        
-        # Validate date format
         try:
             datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
@@ -46,8 +48,7 @@ def check_table_availability(date: str, time: str, brach: str) -> str:
                 "availableSizes": [],
                 "message": "Invalid date format. Please use yyyy-mm-dd"
             }
-        
-        # Validate time format
+    
         try:
             datetime.strptime(time, "%H:%M")
         except ValueError:
@@ -61,7 +62,6 @@ def check_table_availability(date: str, time: str, brach: str) -> str:
                 "message": "Invalid time format. Please use hh:mm"
             }
         
-        # Check for conflicting bookings
         maxTablesPerSlot = 5
         conflictingBookings = [
             b for b in BOOKING
@@ -74,7 +74,6 @@ def check_table_availability(date: str, time: str, brach: str) -> str:
         bookedTableCount = len(conflictingBookings)
         availableTableCount = maxTablesPerSlot - bookedTableCount
         
-        # Determine availability status and table sizes
         if availableTableCount == 0:
             status = "unavailable"
             availableSizes = []
@@ -121,8 +120,6 @@ def _build_availability_message(branch: str, date: str, time: str, status: str, 
     else:
         return "Unable to determine availability. Please try again."
 
-
-# Create structured tool
 checkTableAvailabilityTool = StructuredTool.from_function(
     func=check_table_availability,
     name="check_table_availability",
