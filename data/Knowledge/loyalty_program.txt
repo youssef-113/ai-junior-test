@@ -1,0 +1,61 @@
+# NovaBite Loyalty Program
+
+## Program Overview
+
+Join our NovaBite Loyalty Program and earn points with every visit! Membership is free.
+
+## How It Works
+
+- Earn 1 point for every 1 EGP spent
+- Redeem points for discounts and rewards
+- 100 points = 50 EGP discount
+- Minimum redemption: 100 points
+
+## Membership Tiers
+
+### Base Tier (0-299 points)
+- Free drink with every meal
+- Birthday dessert
+- Member-exclusive offers
+
+### Pro Tier (300-749 points)
+- 15% discount on all food orders
+- Free dessert monthly
+- Priority booking for reservations
+- All Base tier benefits
+
+### Premium Tier (750+ points)
+- 20% discount on all food orders
+- Priority reservations (skip the wait)
+- Free birthday meal (main + dessert)
+- Exclusive event invitations
+- Complimentary welcome drink
+- All Pro tier benefits
+
+## Redeeming Points
+
+Points can be redeemed during checkout:
+1. Inform your server you want to redeem points
+2. Provide your User ID
+3. Choose redemption amount (multiples of 100 points)
+4. Discount applied immediately
+
+## Special Events
+
+Members receive special perks for:
+- **Birthday:** Complimentary meal and dessert
+- **Anniversary:** Free bottle of wine with dinner
+- **Holidays:** Festive menu specials
+- **Eid:** Traditional Eid menu with complimentary dessert
+
+## Program Rules
+
+- Points expire after 12 months of inactivity
+- Cannot combine loyalty discount with other promotions
+- Points are non-transferable
+- Lost cards can be replaced (points remain)
+
+## How to Join
+
+Ask your server for a loyalty card or sign up online at novabite.com/loyalty
+Your User ID will be provided upon registration (format: USRXXXX)

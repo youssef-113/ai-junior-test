@@ -1,0 +1,262 @@
+# NovaBite Menu - Shrouk City Branch
+
+## STARTERS
+
+Crispy Calamari
+Price: 115 EGP
+Description: Lightly battered calamari rings, deep-fried to golden perfection. Served with a smoky marinara dipping sauce and a wedge of lemon.
+Ingredients: Calamari, flour, marinara sauce, lemon
+Allergens: Gluten, Seafood
+Vegan: No
+
+Bruschetta Trio
+Price: 90 EGP
+Description: Three slices of toasted sourdough topped with: classic tomato & basil, mushroom & truffle oil, and roasted red pepper & feta.
+Ingredients: Sourdough bread, tomatoes, basil, mushrooms, truffle oil, red pepper, feta cheese
+Allergens: Gluten, Dairy
+Vegan: No
+
+Chicken Satay Skewers
+Price: 105 EGP
+Description: Grilled chicken breast skewers marinated in a ginger-soy-garlic blend. Served with peanut dipping sauce.
+Ingredients: Chicken breast, ginger, soy sauce, garlic, peanuts
+Allergens: Peanuts, Soy, Gluten
+Vegan: No
+
+Vegan Mezze Platter
+Price: 80 EGP
+Description: Hummus, baba ganoush, tabbouleh, olives, and warm pita. Fully plant-based.
+Ingredients: Chickpeas, tahini, eggplant, parsley, tomatoes, bulgur, olives, pita bread
+Allergens: Gluten, Sesame
+Vegan: Yes
+
+## SOUPS
+
+Roasted Tomato Bisque
+Price: 70 EGP
+Description: Slow-roasted vine tomatoes blended with cream and fresh basil. Served with crusty bread. Vegan option available with oat cream.
+Ingredients: Tomatoes, cream, basil, bread
+Allergens: Dairy, Gluten
+Vegan: No (Vegan option available)
+
+Lentil Harira
+Price: 60 EGP
+Description: Traditional Moroccan lentil soup with chickpeas, tomatoes, coriander, and lemon.
+Ingredients: Lentils, chickpeas, tomatoes, coriander, lemon
+Allergens: None
+Vegan: Yes
+
+## SALADS
+
+Classic Caesar
+Price: 120 EGP
+Description: Romaine lettuce, house-made Caesar dressing, parmesan shavings, croutons, anchovies.
+Ingredients: Romaine lettuce, parmesan, croutons, anchovies, eggs, olive oil
+Allergens: Gluten, Dairy, Fish, Eggs
+Vegan: No
+
+Garden Niçoise
+Price: 140 EGP
+Description: Green beans, cherry tomatoes, boiled eggs, olives, potatoes, tuna, Dijon vinaigrette.
+Ingredients: Green beans, tomatoes, eggs, olives, potatoes, tuna
+Allergens: Eggs, Fish
+Vegan: No
+
+Vegan Power Bowl
+Price: 110 EGP
+Description: Quinoa, roasted chickpeas, avocado, kale, pomegranate seeds, tahini lemon dressing.
+Ingredients: Quinoa, chickpeas, avocado, kale, pomegranate, tahini, lemon
+Allergens: Sesame
+Vegan: Yes
+
+## MAINS - PASTA
+
+Spaghetti Carbonara
+Price: 185 EGP
+Description: Al dente spaghetti in a rich egg and pecorino romano sauce with crispy guanciale.
+Ingredients: Spaghetti, eggs, pecorino cheese, guanciale, black pepper
+Allergens: Gluten, Dairy, Eggs, Pork
+Vegan: No
+
+Vegan Pesto Penne
+Price: 165 EGP
+Description: Penne pasta tossed in a cashew-based vegan pesto with cherry tomatoes and fresh basil.
+Ingredients: Penne pasta, cashews, basil, garlic, cherry tomatoes, olive oil
+Allergens: Gluten, Tree Nuts (Cashew)
+Vegan: Yes
+
+Garden Primavera
+Price: 155 EGP
+Description: Penne with seasonal roasted vegetables (zucchini, bell pepper, eggplant, cherry tomato) in a light tomato sauce.
+Ingredients: Penne pasta, zucchini, bell pepper, eggplant, tomatoes
+Allergens: Gluten
+Vegan: Yes
+
+Seafood Linguine
+Price: 255 EGP
+Description: Linguine with shrimp, clams, mussels, garlic, white wine, and parsley butter.
+Ingredients: Linguine, shrimp, clams, mussels, garlic, white wine, butter
+Allergens: Gluten, Shellfish, Dairy, Alcohol
+Vegan: No
+
+## MAINS - GRILLS
+
+Grilled Sea Bass
+Price: 375 EGP
+Description: Whole sea bass grilled over charcoal, served with lemon butter sauce, seasonal vegetables, and herb rice.
+Ingredients: Sea bass, butter, lemon, seasonal vegetables, rice
+Allergens: Fish, Dairy
+Vegan: No
+
+Wagyu Beef Burger (Signature Dish)
+Price: 265 EGP
+Description: 200g wagyu beef patty, brioche bun, aged cheddar, caramelized onion, house sauce. House specialty!
+Ingredients: Wagyu beef, brioche bun, cheddar cheese, onions, eggs, mayo
+Allergens: Gluten, Dairy, Eggs
+Vegan: No
+
+Chicken Milanese
+Price: 185 EGP
+Description: Breaded chicken breast, fried golden, served with arugula salad and lemon.
+Ingredients: Chicken breast, breadcrumbs, eggs, arugula, lemon
+Allergens: Gluten, Eggs, Dairy
+Vegan: No
+
+Grilled Salmon Fillet
+Price: 235 EGP
+Description: Atlantic salmon, lemon-dill glaze, served with asparagus and mashed potato.
+Ingredients: Salmon, dill, lemon, asparagus, potatoes, cream
+Allergens: Fish, Dairy
+Vegan: No
+
+Beyond Burger (Vegan - Signature Dish)
+Price: 175 EGP
+Description: Plant-based patty, vegan cheese, lettuce, tomato, pickles, vegan mayo on a brioche bun. House specialty!
+Ingredients: Beyond meat patty, vegan cheese, lettuce, tomato, pickles, vegan mayo, brioche bun
+Allergens: Gluten, Soy
+Vegan: Yes
+
+## SIDES
+
+Truffle Fries
+Price: 70 EGP
+Description: Crispy fries tossed in truffle oil and parmesan.
+Ingredients: Potatoes, truffle oil, parmesan
+Allergens: Gluten
+Vegan: No
+
+Steamed Jasmine Rice
+Price: 40 EGP
+Description: Fragrant steamed jasmine rice.
+Ingredients: Jasmine rice
+Allergens: None
+Vegan: Yes
+
+Roasted Seasonal Vegetables
+Price: 60 EGP
+Description: Seasonal vegetables roasted with olive oil and herbs.
+Ingredients: Seasonal vegetables, olive oil, herbs
+Allergens: None
+Vegan: Yes
+
+Mashed Potato
+Price: 50 EGP
+Description: Creamy mashed potatoes with butter.
+Ingredients: Potatoes, butter, cream
+Allergens: Dairy
+Vegan: No
+
+Mixed Green Salad
+Price: 45 EGP
+Description: Fresh mixed greens with house vinaigrette.
+Ingredients: Mixed greens, olive oil, vinegar
+Allergens: None
+Vegan: Yes
+
+## DESSERTS
+
+Molten Lava Cake
+Price: 110 EGP
+Description: Warm dark chocolate cake with a liquid center, served with vanilla ice cream.
+Ingredients: Dark chocolate, flour, butter, eggs, sugar, vanilla ice cream
+Allergens: Gluten, Dairy, Eggs
+Vegan: No
+
+Crème Brûlée
+Price: 90 EGP
+Description: Classic French vanilla custard with caramelized sugar crust.
+Ingredients: Cream, eggs, vanilla, sugar
+Allergens: Dairy, Eggs
+Vegan: No
+
+Mango Sorbet
+Price: 70 EGP
+Description: House-made mango sorbet, three scoops.
+Ingredients: Mango, sugar, water
+Allergens: None
+Vegan: Yes
+
+Nutella Waffle
+Price: 130 EGP
+Description: Belgian waffle, Nutella drizzle, banana slices, powdered sugar.
+Ingredients: Flour, eggs, Nutella, bananas, sugar
+Allergens: Gluten, Dairy, Tree Nuts (Hazelnuts)
+Vegan: No
+
+Vegan Chocolate Mousse
+Price: 80 EGP
+Description: Dark chocolate and coconut cream mousse.
+Ingredients: Dark chocolate, coconut cream, sugar
+Allergens: None
+Vegan: Yes
+
+## BEVERAGES
+
+Fresh Orange Juice
+Price: 50 EGP
+Description: Freshly squeezed orange juice.
+Ingredients: Oranges
+Allergens: None
+Vegan: Yes
+
+Mango Lemonade
+Price: 40 EGP
+Description: Refreshing mango-infused lemonade.
+Ingredients: Mango, lemon, sugar, water
+Allergens: None
+Vegan: Yes
+
+Iced Mint Lemonade
+Price: 35 EGP
+Description: Classic lemonade with fresh mint.
+Ingredients: Lemon, mint, sugar, water
+Allergens: None
+Vegan: Yes
+
+Arabic Coffee (Qahwa)
+Price: 30 EGP
+Description: Traditional Arabic coffee with cardamom.
+Ingredients: Coffee, cardamom
+Allergens: None
+Vegan: Yes
+
+Turkish Coffee
+Price: 35 EGP
+Description: Rich Turkish-style coffee.
+Ingredients: Coffee
+Allergens: None
+Vegan: Yes
+
+Cappuccino / Latte
+Price: 50 EGP
+Description: Espresso with steamed milk. Oat milk available.
+Ingredients: Coffee, milk (or oat milk)
+Allergens: Dairy (if using regular milk)
+Vegan: Optional
+
+Still / Sparkling Water
+Price: 20 EGP
+Description: Bottled water.
+Ingredients: Water
+Allergens: None
+Vegan: Yes
