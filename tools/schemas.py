@@ -52,3 +52,36 @@ class SpecialDish(BaseModel):
 
     class Config:
         populate_by_name = True
+
+class MenuItem(BaseModel):
+    """Menu item with details"""
+    name: str
+    description: str
+    price: float
+    ingredients: List[str] = []
+    allergens: List[str] = []
+    isVegan: bool = False
+    branch: Optional[BranchName] = None
+
+
+class Plan(BaseModel):
+    """Loyalty plan details"""
+    tier: LoyaltyTier
+    description: str
+    discount_percent: int = 0
+    benefits: List[str] = []
+
+    class Config:
+        use_enum_values = False
+
+
+class SpecialEvent(BaseModel):
+    """Special event offer"""
+    event_type: SpecialEventType
+    title: str
+    description: str
+    benefits: List[str] = []
+
+    class Config:
+        use_enum_values = False
+
