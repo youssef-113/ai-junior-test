@@ -127,7 +127,6 @@ class RAGKnowledgeAgent:
         answer_text = result.get("result", "")
         source_docs = result.get("source_documents", [])
 
-        # Hallucination guard: check if we hit the fallback phrase
         grounded = "I don't have that information" not in answer_text and bool(source_docs)
 
         sources = list({
@@ -135,7 +134,6 @@ class RAGKnowledgeAgent:
             for doc in source_docs
         })
 
-        # Calculate confidence based on grounding and source count
         confidence = 0.85 if grounded else 0.3
 
         logger.info(f"RAG Agent response grounded={grounded}, sources={sources}")
@@ -236,5 +234,4 @@ class RAGKnowledgeAgent:
         return tier.lower() in [t.value for t in LoyaltyTier]
 
 
-# Singleton instance
 rag_agent = RAGKnowledgeAgent()
