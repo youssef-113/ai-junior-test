@@ -1,4 +1,4 @@
-from lamgchain.tools import tool
+from langchain.tools import tool
 from datetime import datetime
 
 @tool
@@ -14,6 +14,8 @@ def check_table_availability(date: str, time:str , brach:str) -> str :
 
     """
     try:
+        branchID = branch.lower().strip()
+        
 
 
 
