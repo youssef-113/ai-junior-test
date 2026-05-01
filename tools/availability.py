@@ -1,4 +1,6 @@
-"""Check table availability tool implementation"""
+"""
+NovaBite- tool availabailty
+Check table availability tool implementation"""
 
 from datetime import datetime
 from langchain.tools import StructuredTool

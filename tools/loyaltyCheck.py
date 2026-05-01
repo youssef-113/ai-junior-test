@@ -1,4 +1,6 @@
-"""Loyalty points tool implementation"""
+"""
+NovaBite - loyalty tool
+Loyalty points tool implementation"""
 
 import logging
 from datetime import datetime

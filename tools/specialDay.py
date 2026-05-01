@@ -1,4 +1,4 @@
-"""Today's special dish tool implementation"""
+"""NovaBite - Today's special dish tool implementation"""
 
 from datetime import datetime
 from langchain.tools import StructuredTool

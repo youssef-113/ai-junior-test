@@ -1,4 +1,6 @@
-"""Book table tool implementation"""
+"""
+NovaBite - tool book table
+Book table tool implementation"""
 
 import uuid
 from datetime import datetime

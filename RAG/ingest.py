@@ -1,4 +1,5 @@
 """
+NovaBite - RAG ingest setup 
 Loads knowledge documents → chunks → embeds → stores in FAISS.
 """
 
