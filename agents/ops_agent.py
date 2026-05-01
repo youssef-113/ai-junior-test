@@ -87,11 +87,20 @@ class OperationsAgent:
                        SpecialEventType.HOLIDAY.value, SpecialEventType.EID_DAY.value]
 
     def _build_executor(self, today_date: str = None) -> AgentExecutor:
-        llm = ChatOpenAI(
-            model=settings.llm_model,
-            temperature=0,
-            openai_api_key=settings.openai_api_key,
-        )
+        # Support both OpenAI and OpenRouter
+        if settings.llm_provider == "openrouter":
+            llm = ChatOpenAI(
+                model=settings.llm_model,  # e.g., "openai/gpt-4o-mini"
+                temperature=0,
+                openai_api_key=settings.openrouter_api_key,
+                openai_api_base=settings.openrouter_base_url,
+            )
+        else:
+            llm = ChatOpenAI(
+                model=settings.llm_model,
+                temperature=0,
+                openai_api_key=settings.openai_api_key,
+            )
         prompt = get_ops_prompt(today_date)
         agent = create_openai_tools_agent(llm, ALL_TOOLS, prompt)
         executor = AgentExecutor(

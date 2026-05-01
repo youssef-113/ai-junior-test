@@ -61,11 +61,20 @@ class IntentClassifier:
     """Classifies user intent for agent routing."""
     
     def __init__(self):
-        self.llm = ChatOpenAI(
-            model=settings.llm_model,
-            temperature=0,
-            openai_api_key=settings.openai_api_key,
-        )
+        # Support both OpenAI and OpenRouter
+        if settings.llm_provider == "openrouter":
+            self.llm = ChatOpenAI(
+                model=settings.llm_model,  # e.g., "openai/gpt-4o-mini"
+                temperature=0,
+                openai_api_key=settings.openrouter_api_key,
+                openai_api_base=settings.openrouter_base_url,
+            )
+        else:
+            self.llm = ChatOpenAI(
+                model=settings.llm_model,
+                temperature=0,
+                openai_api_key=settings.openai_api_key,
+            )
         self.prompt = PromptTemplate(
             template=INTENT_PROMPT,
             input_variables=["message", "history"]

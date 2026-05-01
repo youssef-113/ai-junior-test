@@ -25,8 +25,18 @@ class Settings:
     RETRIEVAL_TOP_K: int = int(os.getenv("RETRIEVAL_TOP_K", "4"))
     RETRIEVAL_SCORE_THRESHOLD: float = float(os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.75"))
     
+    # LLM Provider Settings (OpenRouter or OpenAI)
+    LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "openai")  # "openai" or "openrouter"
+    
+    # OpenAI Settings (for both direct OpenAI and embeddings)
     OPENAI_API_KEY: Optional[str] = os.getenv("OPENAI_API_KEY")
-    LLM_MODEL: str = os.getenv("LLM_MODEL", "gpt-4o-mini")
+    
+    # OpenRouter Settings
+    OPENROUTER_API_KEY: Optional[str] = os.getenv("OPENROUTER_API_KEY")
+    OPENROUTER_BASE_URL: str = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+    
+    # Model Settings
+    LLM_MODEL: str = os.getenv("LLM_MODEL", "gpt-4o-mini")  # For OpenAI: "gpt-4o-mini", For OpenRouter: "openai/gpt-4o-mini"
     TEMPERATURE: float = float(os.getenv("TEMPERATURE", "0.1"))
     
     MAX_TABLES_PER_SLOT: int = 5
@@ -108,13 +118,43 @@ class Settings:
         """Logging level."""
         return self.LOG_LEVEL
     
+    @property
+    def llm_provider(self) -> str:
+        """LLM provider type."""
+        return self.LLM_PROVIDER
+    
+    @property
+    def openrouter_api_key(self) -> Optional[str]:
+        """OpenRouter API key."""
+        return self.OPENROUTER_API_KEY
+    
+    @property
+    def openrouter_base_url(self) -> str:
+        """OpenRouter API base URL."""
+        return self.OPENROUTER_BASE_URL
+    
     def validate(self) -> None:
         """Validate critical settings."""
-        if not self.OPENAI_API_KEY:
-            raise ValueError(
-                "OPENAI_API_KEY is not set. "
-                "Please set it in your .env file or environment variables."
-            )
+        # Check LLM provider settings
+        if self.LLM_PROVIDER == "openrouter":
+            if not self.OPENROUTER_API_KEY:
+                raise ValueError(
+                    "OPENROUTER_API_KEY is not set. "
+                    "Please set it in your .env file or environment variables."
+                )
+            # OpenRouter still needs OpenAI for embeddings
+            if not self.OPENAI_API_KEY:
+                raise ValueError(
+                    "OPENAI_API_KEY is also required for embeddings when using OpenRouter. "
+                    "Please set both OPENROUTER_API_KEY and OPENAI_API_KEY."
+                )
+        else:
+            # Direct OpenAI usage
+            if not self.OPENAI_API_KEY:
+                raise ValueError(
+                    "OPENAI_API_KEY is not set. "
+                    "Please set it in your .env file or environment variables."
+                )
         
         Path(self.KNOWLEDGE_DIR).mkdir(parents=True, exist_ok=True)
         Path(self.FAISS_INDEX_PATH).mkdir(parents=True, exist_ok=True)
