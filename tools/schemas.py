@@ -115,3 +115,29 @@ class Booking(BaseModel):
     notes: Optional[str] = None
     createdAt: Optional[datetime] = None
     status: Literal["confirmed", "cancelled", "completed"] = "confirmed"
+
+
+    @validator("date")
+    def validate_date_format(cls, v):
+        try:
+            datetime.strptime(v, "%Y-%m-%d")
+            return v
+        except ValueError:
+            raise ValueError("Date must be in yyyy-mm-dd format")
+
+    @validator("time")
+    def validate_time_format(cls, v):
+        try:
+            datetime.strptime(v, "%H:%M")
+            return v
+        except ValueError:
+            raise ValueError("Time must be in hh:mm format")
+
+    @validator("party_size")
+    def validate_party_size(cls, v):
+        if v < 1 or v > 12:
+            raise ValueError("Party size must be between 1 and 12")
+        return v
+
+    class Config:
+        use_enum_values = False
