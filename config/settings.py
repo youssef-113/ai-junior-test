@@ -33,6 +33,11 @@ class Settings:
     
     MAX_ITERATIONS: int = int(os.getenv("MAX_ITERATIONS", "5"))
     
+    # API Server settings
+    API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
+    API_PORT: int = int(os.getenv("API_PORT", "8000"))
+    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+    
     @property
     def knowledge_dir(self) -> str:
         """Knowledge documents directory."""
@@ -87,6 +92,21 @@ class Settings:
     def max_iterations(self) -> int:
         """Max agent iterations."""
         return self.MAX_ITERATIONS
+    
+    @property
+    def api_host(self) -> str:
+        """API server host."""
+        return self.API_HOST
+    
+    @property
+    def api_port(self) -> int:
+        """API server port."""
+        return self.API_PORT
+    
+    @property
+    def log_level(self) -> str:
+        """Logging level."""
+        return self.LOG_LEVEL
     
     def validate(self) -> None:
         """Validate critical settings."""
