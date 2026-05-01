@@ -141,3 +141,30 @@ class Booking(BaseModel):
 
     class Config:
         use_enum_values = False
+
+
+
+class CheckAvailabilityInput(BaseModel):
+    """Input schema for check_table_availability tool"""
+    date: str = Field(..., description="Date in yyyy-mm-dd format")
+    time: str = Field(..., description="Time in hh:mm format (24-hour)")
+    branch: BranchName = Field(..., description="Branch name")
+
+    @validator("date")
+    def validate_date_format(cls, v):
+        try:
+            datetime.strptime(v, "%Y-%m-%d")
+            return v
+        except ValueError:
+            raise ValueError("Date must be in yyyy-mm-dd format")
+
+    @validator("time")
+    def validate_time_format(cls, v):
+        try:
+            datetime.strptime(v, "%H:%M")
+            return v
+        except ValueError:
+            raise ValueError("Time must be in hh:mm format (24-hour)")
+
+    class Config:
+        use_enum_values = True
